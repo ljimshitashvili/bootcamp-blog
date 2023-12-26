@@ -1,13 +1,17 @@
 import styled from "styled-components";
-import { add, error } from "../assets";
+import { add, error, success } from "../assets";
 import myApi from "../axios/myApi";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
-const LogIn = ({ loginWindow, setLoginWindow, setLogged }) => {
+const LogIn = ({ loginWindow, setLoginWindow, setLogged, isLogged }) => {
   const [wrongMail, setWrongMail] = useState(false);
   const toggleWindow = () => {
     setLoginWindow(!loginWindow);
   };
+
+  useEffect(() => {
+    sessionStorage.setItem("isLogged", isLogged);
+  }, [isLogged]);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -30,6 +34,7 @@ const LogIn = ({ loginWindow, setLoginWindow, setLogged }) => {
     <Container
       loginWindow={loginWindow}
       wrongMail={wrongMail}
+      isLogged={isLogged}
       onSubmit={handleSubmit}
     >
       <img src={add} alt="close" className="svg" onClick={toggleWindow} />
@@ -47,9 +52,12 @@ const LogIn = ({ loginWindow, setLoginWindow, setLogged }) => {
           <p>ელ-ფოსტა არ მოიძებნა</p>
         </div>
       </label>
-      <button type="submit" onClick={toggleWindow}>
-        შესვლა
-      </button>
+      <button type="submit">შესვლა</button>
+      <div className="successWindow">
+        <img src={success} alt="Successfull LogIn Icon" />
+        <h1>წარმატებული ავტორიზაცია</h1>
+        <button onClick={toggleWindow}>კარგი</button>
+      </div>
     </Container>
   );
 };
@@ -69,6 +77,52 @@ const Container = styled.form`
   gap: 24px;
   flex-direction: column;
   align-items: center;
+
+  .successWindow {
+    background-color: #fff;
+    width: 90%;
+    height: 90%;
+    border-radius: 12px;
+    position: absolute;
+    left: 5%;
+    top: 5%;
+    display: ${(p) => (p.isLogged ? "flex" : "none")};
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    img {
+      margin-bottom: 16px;
+    }
+
+    h1 {
+      color: #1a1a1f;
+      text-align: center;
+      font-family: FiraGO;
+      font-size: 20px;
+      font-style: normal;
+      font-weight: 700;
+      line-height: 28px;
+      margin-bottom: 48px;
+    }
+
+    button {
+      display: flex;
+      width: 432px;
+      padding: 10px 20px;
+      justify-content: center;
+      align-items: center;
+      gap: 10px;
+      border-radius: 8px;
+      background: #5d37f3;
+      color: #fff;
+      font-family: FiraGO;
+      font-size: 14px;
+      font-style: normal;
+      font-weight: 500;
+      line-height: 20px;
+    }
+  }
 
   .errorMessage {
     display: ${(p) => (p.wrongMail ? "flex" : "none")};
@@ -90,6 +144,7 @@ const Container = styled.form`
     right: 20px;
     cursor: pointer;
     top: 20px;
+    z-index: 2;
   }
 
   h1 {

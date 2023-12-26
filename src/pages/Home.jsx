@@ -1,11 +1,17 @@
 import styled from "styled-components";
-import { Title, Filter, BlogList } from "../components";
-const Home = ({ setLoginWindow, loginWindow }) => {
+import { Title, Filter, BlogList, LogIn } from "../components";
+const Home = ({ setLoginWindow, loginWindow, setLogged, isLogged }) => {
   return (
     <Container>
       <Title />
       <Filter />
       <BlogList />
+      <LogIn
+        loginWindow={loginWindow}
+        setLoginWindow={setLoginWindow}
+        setLogged={setLogged}
+        isLogged={isLogged}
+      />
     </Container>
   );
 };

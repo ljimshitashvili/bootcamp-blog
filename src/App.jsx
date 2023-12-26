@@ -1,26 +1,43 @@
 import styled from "styled-components";
-import { Header, Home, LogIn } from "./components";
+import { Header, Home, AddBlog } from "./components";
 import { useState } from "react";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 function App() {
   const [loginWindow, setLoginWindow] = useState(false);
-  const [isLogged, setLogged] = useState(false);
+  const [isLogged, setLogged] = useState(
+    sessionStorage.getItem("isLogged") === "true"
+  );
 
   const toggleWindow = () => {
     setLoginWindow(!loginWindow);
   };
 
   return (
-    <Container loginWindow={loginWindow}>
-      <div className="overlay" onClick={toggleWindow}></div>
-      <LogIn loginWindow={loginWindow} setLogged={setLogged} />
-      <Header
-        setLoginWindow={setLoginWindow}
-        loginWindow={loginWindow}
-        isLogged={isLogged}
-      />
-      <Home setLoginWindow={setLoginWindow} loginWindow={loginWindow} />
-    </Container>
+    <Router>
+      <Container loginWindow={loginWindow}>
+        <div className="overlay" onClick={toggleWindow}></div>
+        <Header
+          setLoginWindow={setLoginWindow}
+          loginWindow={loginWindow}
+          isLogged={isLogged}
+        />
+        <Routes>
+          <Route
+            path="/"
+            element={
+              <Home
+                setLoginWindow={setLoginWindow}
+                loginWindow={loginWindow}
+                setLogged={setLogged}
+                isLogged={isLogged}
+              />
+            }
+          />
+          <Route path="add-new-blog" element={<AddBlog />} />
+        </Routes>
+      </Container>
+    </Router>
   );
 }
 
