@@ -13,11 +13,15 @@ const Header = ({ setLoginWindow, loginWindow, isLogged }) => {
     <Container>
       {location.includes("add-new-blog") ? (
         <div className="headerBlog">
-          <img src={logo} alt="Logo" />
+          <Link to="/">
+            <img src={logo} alt="Logo" />
+          </Link>
         </div>
       ) : (
         <div className="header">
-          <img src={logo} alt="Logo" />
+          <Link to="/">
+            <img src={logo} alt="Logo" />
+          </Link>
           {isLogged ? (
             <Link to="add-new-blog">
               <button>დაამატე ბლოგი</button>
@@ -35,10 +39,9 @@ export default Header;
 
 const Container = styled.div`
   .headerBlog {
-    height: 80px;
+    width: 100vw;
     height: 80px;
     background-color: #fff;
-    width: 100%;
     border-bottom: 1px solid #e4e3eb;
     display: flex;
     align-items: center;
@@ -49,7 +52,7 @@ const Container = styled.div`
   .header {
     height: 80px;
     background-color: #fff;
-    width: 100%;
+    width: 100vw;
     border-bottom: 1px solid #e4e3eb;
     display: flex;
     align-items: center;

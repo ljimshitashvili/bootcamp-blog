@@ -25,6 +25,7 @@ const Container = styled.div`
     font-size: 64px;
     font-style: normal;
     font-weight: 700;
-    line-height: 72px; /* 112.5% */
+    line-height: 72px;
+    cursor: default;
   }
 `;

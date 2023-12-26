@@ -48,6 +48,9 @@ const Container = styled.div`
   min-height: 100vh;
   background-color: #f3f2fa;
   position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 
   .overlay {
     position: absolute;
