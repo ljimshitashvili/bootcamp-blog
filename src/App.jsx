@@ -8,6 +8,7 @@ function App() {
   const [isLogged, setLogged] = useState(
     sessionStorage.getItem("isLogged") === "true"
   );
+  const [category, setCategory] = useState([]);
 
   const toggleWindow = () => {
     setLoginWindow(!loginWindow);
@@ -31,6 +32,8 @@ function App() {
                 loginWindow={loginWindow}
                 setLogged={setLogged}
                 isLogged={isLogged}
+                category={category}
+                setCategory={setCategory}
               />
             }
           />

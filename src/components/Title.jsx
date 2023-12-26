@@ -17,6 +17,7 @@ const Container = styled.div`
   align-items: center;
   justify-content: space-between;
   margin: 64px 0;
+  width: 100%;
 
   h1 {
     padding-left: 13px;
