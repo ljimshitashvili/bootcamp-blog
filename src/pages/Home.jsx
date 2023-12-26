@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { Title, Filter, BlogList } from "../components";
-const Home = () => {
+const Home = ({ setLoginWindow, loginWindow }) => {
   return (
     <Container>
       <Title />

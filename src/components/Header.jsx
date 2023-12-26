@@ -1,11 +1,19 @@
 import styled from "styled-components";
 import { logo } from "../assets";
 
-const Header = () => {
+const Header = ({ setLoginWindow, loginWindow, isLogged }) => {
+  const toggleWindow = () => {
+    setLoginWindow(!loginWindow);
+  };
+
   return (
     <Container>
       <img src={logo} alt="Logo" />
-      <button>შესვლა</button>
+      {isLogged ? (
+        <button>დაამატე ბლოგი</button>
+      ) : (
+        <button onClick={toggleWindow}>შესვლა</button>
+      )}
     </Container>
   );
 };

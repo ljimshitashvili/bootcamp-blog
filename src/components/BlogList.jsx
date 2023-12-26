@@ -4,16 +4,15 @@ import { useEffect } from "react";
 
 const BlogList = () => {
   useEffect(() => {
-    const fetchData = async () => {
+    const logInUser = async () => {
       try {
-        const response = await myApi.get(`/categories`);
+        const response = await myApi.get(`/blogs`);
         const data = response.data;
-        console.log(data);
       } catch (error) {
         console.log(error);
       }
     };
-    fetchData();
+    logInUser();
   }, []);
 
   return <Container></Container>;
