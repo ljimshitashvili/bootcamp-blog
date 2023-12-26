@@ -16,7 +16,7 @@ const Container = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-top: 64px;
+  margin: 64px 0;
 
   h1 {
     padding-left: 13px;

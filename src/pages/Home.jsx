@@ -1,9 +1,11 @@
 import styled from "styled-components";
-import Title from "./Title";
+import { Title, Filter, BlogList } from "../components";
 const Home = () => {
   return (
     <Container>
       <Title />
+      <Filter />
+      <BlogList />
     </Container>
   );
 };
