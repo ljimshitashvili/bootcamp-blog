@@ -37,7 +37,10 @@ function App() {
               />
             }
           />
-          <Route path="add-new-blog" element={<AddBlog />} />
+          <Route
+            path="add-new-blog"
+            element={<AddBlog category={category} />}
+          />
         </Routes>
       </Container>
     </Router>

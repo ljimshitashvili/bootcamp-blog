@@ -1,21 +1,7 @@
-import { useEffect, useState } from "react";
 import styled from "styled-components";
-import myApi from "../axios/myApi";
 
-const Filter = ({ category, setCategory }) => {
-  useEffect(() => {
-    try {
-      const fetchData = async () => {
-        const response = await myApi.get("/categories");
-        const data = response.data.data;
-        setCategory(data);
-        console.log(data);
-      };
-      fetchData();
-    } catch (error) {
-      console.log(error);
-    }
-  }, []);
+const CatPopUp = ({ category }) => {
+  console.log(category);
   return (
     <Container>
       {category.map((item, index) => (
@@ -30,18 +16,23 @@ const Filter = ({ category, setCategory }) => {
   );
 };
 
-export default Filter;
+export default CatPopUp;
 
 const Container = styled.div`
-  margin-bottom: 64px;
+  width: 288px;
+  height: 144px;
+  padding: 16px;
   display: flex;
-  gap: 24px;
-  height: 50px;
-  max-width: 684px;
-  gap: 24px;
-  white-space: nowrap;
-  overflow-y: hidden;
-  overflow-x: auto;
+  flex-wrap: wrap;
+  gap: 8px;
+  position: absolute;
+  background-color: #fff;
+  left: 0;
+  top: 48px;
+  border-radius: 12px;
+  border: 1px solid #e4e3eb;
+  box-shadow: 2px 4px 8px 0px rgba(0, 0, 0, 0.08);
+  overflow-y: scroll;
 
   div {
     padding: 8px 16px;

@@ -3,3 +3,4 @@ export { default as Background } from "./Background.png";
 export { default as add } from "./add.svg";
 export { default as error } from "./info-circle.svg";
 export { default as success } from "./tick-circle.svg";
+export { default as arrowDown } from "./arrow-down.svg";

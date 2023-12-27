@@ -1,9 +1,15 @@
 import React from "react";
 import styled from "styled-components";
+import { arrowDown } from "../assets";
+import { CatPopUp } from "../components/index";
 
-const AddBlog = () => {
+const AddBlog = ({ category }) => {
+  const handleSubmit = (e) => {
+    e.preventDefault();
+  };
+
   return (
-    <Container>
+    <Container onSubmit={handleSubmit}>
       <h1>ბლოგის დამატება</h1>
 
       <div className="image">
@@ -37,7 +43,10 @@ const AddBlog = () => {
         </label>
         <label htmlFor="category" className="category">
           კატეგორია *
-          <input type="text" id="category" />
+          <div id="category">
+            <img src={arrowDown} alt="Arrow" />
+            <CatPopUp category={category} />
+          </div>
         </label>
       </div>
       <label htmlFor="mail" className="mail">
@@ -151,6 +160,21 @@ const Container = styled.form`
       }
     }
   }
+
+  #category {
+    border-radius: 12px;
+    border: 1px solid #e4e3eb;
+    background: #fcfcfd;
+    height: 44px;
+    padding: 6px 14.5px 6px 6px;
+    display: flex;
+    justify-content: end;
+    align-items: center;
+    gap: 5.5px;
+    position: relative;
+    cursor: pointer;
+  }
+
   .mail {
     display: flex;
     flex-direction: column;
