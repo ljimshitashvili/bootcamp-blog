@@ -309,6 +309,6 @@ const Container = styled.form`
     font-size: 14px;
     font-style: normal;
     font-weight: 500;
-    line-height: 20px; /* 142.857% */
+    line-height: 20px;
   }
 `;
