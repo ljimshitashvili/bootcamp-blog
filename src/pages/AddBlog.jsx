@@ -1,18 +1,26 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import { arrowDown } from "../assets";
+import { add, arrowDown } from "../assets";
 import { CatPopUp } from "../components/index";
 
 const AddBlog = ({ category }) => {
-  const [popup, setPopup] = useState("false");
+  const [popup, setPopup] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState([]);
 
+  // Avoids browser refresh on submit.
   const handleSubmit = (e) => {
     e.preventDefault();
   };
 
+  // Changes value of the state, which is responsible for visibility of categories pop-up.
   const togglePopUp = () => {
     setPopup(!popup);
+  };
+
+  const handleRemove = (selectedItem) => {
+    setSelectedCategory(
+      selectedCategory.filter((item) => item.id !== selectedItem.id)
+    );
   };
 
   return (
@@ -51,6 +59,29 @@ const AddBlog = ({ category }) => {
         <label htmlFor="category" className="category">
           კატეგორია *
           <div id="category" onClick={togglePopUp}>
+            <div className="chosenCategories">
+              {selectedCategory.map((item, index) => (
+                <div
+                  key={item.id}
+                  className="card"
+                  style={{
+                    backgroundColor: `${item?.background_color}`,
+                    border: selectedCategory.includes(item.id)
+                      ? "2px solid #00f"
+                      : "none",
+                  }}
+                >
+                  <img
+                    src={add}
+                    alt="Remove Icon"
+                    onClick={() => handleRemove(item)}
+                  />
+                  <h1 style={{ color: `${item?.text_color}` }}>
+                    {item?.title}
+                  </h1>
+                </div>
+              ))}
+            </div>
             <img src={arrowDown} alt="Arrow" />
             <CatPopUp
               popup={popup}
@@ -82,6 +113,48 @@ const Container = styled.form`
   gap: 24px;
   align-items: center;
   padding-top: 40px;
+
+  .chosenCategories {
+    display: flex;
+    flex-wrap: nowrap;
+    overflow-x: scroll;
+    gap: 8px;
+    width: 100%;
+    max-width: 239.81px;
+    align-items: center;
+
+    .card {
+      padding: 8px 12px;
+      border-radius: 30px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: row-reverse;
+      gap: 8px;
+      height: 32px;
+      width: max-content;
+
+      h1 {
+        color: #fff;
+        font-family: FiraGO;
+        font-size: 12px;
+        font-style: normal;
+        font-weight: 500;
+        line-height: 16px;
+        align-self: baseline;
+        width: max-content;
+      }
+
+      img {
+        width: 16px;
+        height: 16px;
+
+        .svg-path {
+          fill: #fff;
+        }
+      }
+    }
+  }
 
   .button {
     width: 100%;

@@ -6,12 +6,32 @@ const CatPopUp = ({
   setSelectedCategory,
   selectedCategory,
 }) => {
+  // Add marked categories to a new array.
+  const handleItemClick = (selectedItem) => {
+    const isSelected = selectedCategory.some(
+      (item) => item.id === selectedItem.id
+    );
+    if (isSelected) {
+      setSelectedCategory(
+        selectedCategory.filter((item) => item.id !== selectedItem.id)
+      );
+    } else {
+      setSelectedCategory([...selectedCategory, selectedItem]);
+    }
+  };
+
   return (
     <Container popup={popup}>
       {category.map((item, index) => (
         <div
           key={item.id}
-          style={{ backgroundColor: `${item?.background_color}` }}
+          style={{
+            backgroundColor: `${item?.background_color}`,
+            border: selectedCategory.includes(item.id)
+              ? "2px solid #00f"
+              : "none",
+          }}
+          onClick={() => handleItemClick(item)}
         >
           <h1 style={{ color: `${item?.text_color}` }}>{item?.title}</h1>
         </div>
