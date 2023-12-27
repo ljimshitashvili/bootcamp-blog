@@ -1,11 +1,18 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import { arrowDown } from "../assets";
 import { CatPopUp } from "../components/index";
 
 const AddBlog = ({ category }) => {
+  const [popup, setPopup] = useState("false");
+  const [selectedCategory, setSelectedCategory] = useState([]);
+
   const handleSubmit = (e) => {
     e.preventDefault();
+  };
+
+  const togglePopUp = () => {
+    setPopup(!popup);
   };
 
   return (
@@ -43,9 +50,14 @@ const AddBlog = ({ category }) => {
         </label>
         <label htmlFor="category" className="category">
           კატეგორია *
-          <div id="category">
+          <div id="category" onClick={togglePopUp}>
             <img src={arrowDown} alt="Arrow" />
-            <CatPopUp category={category} />
+            <CatPopUp
+              popup={popup}
+              category={category}
+              setSelectedCategory={setSelectedCategory}
+              selectedCategory={selectedCategory}
+            />
           </div>
         </label>
       </div>

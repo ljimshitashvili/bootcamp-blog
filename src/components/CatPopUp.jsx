@@ -1,12 +1,16 @@
 import styled from "styled-components";
 
-const CatPopUp = ({ category }) => {
-  console.log(category);
+const CatPopUp = ({
+  category,
+  popup,
+  setSelectedCategory,
+  selectedCategory,
+}) => {
   return (
-    <Container>
+    <Container popup={popup}>
       {category.map((item, index) => (
         <div
-          key={index}
+          key={item.id}
           style={{ backgroundColor: `${item?.background_color}` }}
         >
           <h1 style={{ color: `${item?.text_color}` }}>{item?.title}</h1>
@@ -22,7 +26,7 @@ const Container = styled.div`
   width: 288px;
   height: 144px;
   padding: 16px;
-  display: flex;
+  display: ${(p) => (p.popup ? "flex" : "none")};
   flex-wrap: wrap;
   gap: 8px;
   position: absolute;

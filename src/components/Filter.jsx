@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import styled from "styled-components";
 import myApi from "../axios/myApi";
+import { useLocation } from "react-router-dom";
 
 const Filter = ({ category, setCategory }) => {
   useEffect(() => {
@@ -20,7 +21,7 @@ const Filter = ({ category, setCategory }) => {
     <Container>
       {category.map((item, index) => (
         <div
-          key={index}
+          key={item.id}
           style={{ backgroundColor: `${item?.background_color}` }}
         >
           <h1 style={{ color: `${item?.text_color}` }}>{item?.title}</h1>
