@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import { add, arrowDown } from "../assets";
 import { CatPopUp } from "../components/index";
+import { blogValidation } from "../validation/blogValidation";
 
 const AddBlog = ({ category }) => {
   const [popup, setPopup] = useState(false);
@@ -23,6 +24,8 @@ const AddBlog = ({ category }) => {
     );
   };
 
+  console.log();
+
   return (
     <Container onSubmit={handleSubmit}>
       <h1>ბლოგის დამატება</h1>
@@ -35,11 +38,49 @@ const AddBlog = ({ category }) => {
       <div className="container">
         <label className="author">
           ავტორი *
-          <input type="text" id="author" placeholder="შეიყვანეთ ავტორი" />
+          <input
+            type="text"
+            id="author"
+            placeholder="შეიყვანეთ ავტორი"
+            onChange={blogValidation}
+          />
           <ul>
-            <li>მინიმუმ 4 სიმბოლო</li>
-            <li>მინიმუმ ორი სიტყვა</li>
-            <li>მხოლოდ ქართული სიმობოლოები</li>
+            <li
+              style={{
+                color:
+                  scheme.author.length !== ""
+                    ? "#85858D"
+                    : scheme.author.length === "valid"
+                    ? "green"
+                    : "red",
+              }}
+            >
+              მინიმუმ 4 სიმბოლო
+            </li>
+            <li
+              style={{
+                color:
+                  scheme.author.twoWords !== ""
+                    ? "#85858D"
+                    : scheme.author.twoWords === "valid"
+                    ? "green"
+                    : "red",
+              }}
+            >
+              მინიმუმ ორი სიტყვა
+            </li>
+            <li
+              style={{
+                color:
+                  scheme.author.geoChar !== ""
+                    ? "#85858D"
+                    : scheme.author.geoChar === "valid"
+                    ? "green"
+                    : "red",
+              }}
+            >
+              მხოლოდ ქართული სიმბოლოები
+            </li>
           </ul>
         </label>
         <label htmlFor="title" className="title">
@@ -49,7 +90,8 @@ const AddBlog = ({ category }) => {
         </label>
       </div>
       <label htmlFor="description" className="description">
-        აღწერა *<textarea placeholder="შეიყვნეთ აღწერა" />
+        აღწერა *
+        <textarea placeholder="შეიყვნეთ აღწერა" />
       </label>
       <div className="container2">
         <label className="date">
