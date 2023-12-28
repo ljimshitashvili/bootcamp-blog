@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import { add, arrowDown } from "../assets";
+import { add, arrowDown, error } from "../assets";
 import { CatPopUp } from "../components/index";
 
 const AddBlog = ({ category }) => {
@@ -11,6 +11,7 @@ const AddBlog = ({ category }) => {
   const [authorGeo, setauthorGeo] = useState("");
   const [titleLength, settitleLength] = useState("");
   const [descriptionLength, setdescriptionLength] = useState("");
+  const [emailEnd, setEmailEnd] = useState("");
 
   const authorValidation = (e) => {
     const georgianCharactersRegex = /^[ა-ჰ\s]+$/;
@@ -53,6 +54,15 @@ const AddBlog = ({ category }) => {
       setdescriptionLength("valid");
     } else {
       setdescriptionLength("invalid");
+    }
+  };
+
+  const emailValidation = (e) => {
+    console.log(e.target.value);
+    if (e.target.value.endsWith("@redberry.ge")) {
+      setEmailEnd("valid");
+    } else {
+      setEmailEnd("invalid");
     }
   };
 
@@ -218,7 +228,19 @@ const AddBlog = ({ category }) => {
       </div>
       <label htmlFor="mail" className="mail">
         ელ-ფოსტა
-        <input type="text" placeholder="Example@redberry.ge" />
+        <input
+          type="text"
+          placeholder="Example@redberry.ge"
+          onChange={emailValidation}
+        />
+        <div
+          style={{
+            display: emailEnd === "" || emailEnd === "valid" ? "none" : "flex",
+          }}
+        >
+          <img src={error} alt="error" />
+          <p> მეილი უნდა მთავრდებოდეს @redberry.ge-ით</p>
+        </div>
       </label>
       <div className="button">
         <button type="submit">გამოქვეყნება</button>
@@ -389,6 +411,21 @@ const Container = styled.form`
     flex-direction: column;
     gap: 8px;
     width: 100%;
+
+    div {
+      gap: 8px;
+      align-items: center;
+
+      p {
+        color: #ea1919;
+        font-family: FiraGO;
+        font-size: 12px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: 20px;
+        align-self: baseline;
+      }
+    }
 
     input {
       border-radius: 12px;
