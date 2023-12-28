@@ -40,6 +40,22 @@ const AddBlog = ({ category }) => {
     }
   };
 
+  const titleValidation = (e) => {
+    if (e.target.value.length >= 2) {
+      settitleLength("valid");
+    } else {
+      settitleLength("invalid");
+    }
+  };
+
+  const descriptionValidation = (e) => {
+    if (e.target.value.length >= 2) {
+      setdescriptionLength("valid");
+    } else {
+      setdescriptionLength("invalid");
+    }
+  };
+
   // Avoids browser refresh on submit.
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -64,7 +80,7 @@ const AddBlog = ({ category }) => {
 
       <div className="image">
         <p>ატვირთეთ ფოტო</p>
-        <input type="file" />
+        <input type="file" required />
       </div>
 
       <div className="container">
@@ -75,6 +91,7 @@ const AddBlog = ({ category }) => {
             id="author"
             placeholder="შეიყვანეთ ავტორი"
             onChange={authorValidation}
+            required
           />
           <ul>
             <li
@@ -121,7 +138,8 @@ const AddBlog = ({ category }) => {
             type="text"
             id="title"
             placeholder="შეიყვანეთ სათაური"
-            onChange={blogValidation}
+            onChange={titleValidation}
+            required
           />
           <p
             style={{
@@ -139,7 +157,11 @@ const AddBlog = ({ category }) => {
       </div>
       <label htmlFor="description" className="description">
         აღწერა *
-        <textarea placeholder="შეიყვნეთ აღწერა" onChange={blogValidation} />
+        <textarea
+          placeholder="შეიყვნეთ აღწერა"
+          onChange={descriptionValidation}
+          required
+        />
         <p
           style={{
             color:
@@ -156,7 +178,7 @@ const AddBlog = ({ category }) => {
       <div className="container2">
         <label className="date">
           გამოქვეყნების თარიღი *
-          <input type="date" id="date" />
+          <input type="date" id="date" required />
         </label>
         <label htmlFor="category" className="category">
           კატეგორია *
