@@ -2,11 +2,43 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import { add, arrowDown } from "../assets";
 import { CatPopUp } from "../components/index";
-import { blogValidation } from "../validation/blogValidation";
 
 const AddBlog = ({ category }) => {
   const [popup, setPopup] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState([]);
+  const [authorLength, setauthorLength] = useState("");
+  const [authorWords, setauthorWords] = useState("");
+  const [authorGeo, setauthorGeo] = useState("");
+  const [titleLength, settitleLength] = useState("");
+  const [descriptionLength, setdescriptionLength] = useState("");
+
+  const authorValidation = (e) => {
+    const georgianCharactersRegex = /^[ა-ჰ\s]+$/;
+
+    const checkWords = (string) => {
+      let trimmedString = string.trim();
+      let words = trimmedString.split(/\s+/);
+      return words.length === 2;
+    };
+
+    if (e.target.value.length >= 4) {
+      setauthorLength("valid");
+    } else {
+      setauthorLength("invalid");
+    }
+
+    if (checkWords(e.target.value)) {
+      setauthorWords("valid");
+    } else {
+      setauthorWords("invalid");
+    }
+
+    if (georgianCharactersRegex.test(e.target.value)) {
+      setauthorGeo("valid");
+    } else {
+      setauthorGeo("invalid");
+    }
+  };
 
   // Avoids browser refresh on submit.
   const handleSubmit = (e) => {
@@ -42,15 +74,15 @@ const AddBlog = ({ category }) => {
             type="text"
             id="author"
             placeholder="შეიყვანეთ ავტორი"
-            onChange={blogValidation}
+            onChange={authorValidation}
           />
           <ul>
             <li
               style={{
                 color:
-                  scheme.author.length !== ""
+                  authorLength === ""
                     ? "#85858D"
-                    : scheme.author.length === "valid"
+                    : authorLength === "valid"
                     ? "green"
                     : "red",
               }}
@@ -60,9 +92,9 @@ const AddBlog = ({ category }) => {
             <li
               style={{
                 color:
-                  scheme.author.twoWords !== ""
+                  authorWords === ""
                     ? "#85858D"
-                    : scheme.author.twoWords === "valid"
+                    : authorWords === "valid"
                     ? "green"
                     : "red",
               }}
@@ -72,9 +104,9 @@ const AddBlog = ({ category }) => {
             <li
               style={{
                 color:
-                  scheme.author.geoChar !== ""
+                  authorGeo === ""
                     ? "#85858D"
-                    : scheme.author.geoChar === "valid"
+                    : authorGeo === "valid"
                     ? "green"
                     : "red",
               }}
@@ -85,13 +117,41 @@ const AddBlog = ({ category }) => {
         </label>
         <label htmlFor="title" className="title">
           სათური *
-          <input type="text" id="title" placeholder="შეიყვანეთ სათაური" />
-          <p>მინიმუმ 2 სიმბოლო</p>
+          <input
+            type="text"
+            id="title"
+            placeholder="შეიყვანეთ სათაური"
+            onChange={blogValidation}
+          />
+          <p
+            style={{
+              color:
+                titleLength === ""
+                  ? "#85858D"
+                  : titleLength === "valid"
+                  ? "green"
+                  : "red",
+            }}
+          >
+            მინიმუმ 2 სიმბოლო
+          </p>
         </label>
       </div>
       <label htmlFor="description" className="description">
         აღწერა *
-        <textarea placeholder="შეიყვნეთ აღწერა" />
+        <textarea placeholder="შეიყვნეთ აღწერა" onChange={blogValidation} />
+        <p
+          style={{
+            color:
+              descriptionLength === ""
+                ? "#85858D"
+                : descriptionLength === "valid"
+                ? "green"
+                : "red",
+          }}
+        >
+          მინიმუმ 2 სიმბოლო
+        </p>
       </label>
       <div className="container2">
         <label className="date">
